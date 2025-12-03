@@ -1,0 +1,5 @@
+flask
+openpyxl
+google-genai
+python-dotenv
+pandas

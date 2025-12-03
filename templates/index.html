@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Data Analyst</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Settings -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Data<span class="highlight">Mind</span></h1>
+            </div>
+            
+            <div class="settings-group">
+                <label for="api-key">Gemini API Key</label>
+                <div class="input-wrapper">
+                    <input type="password" id="api-key" placeholder="Enter API Key">
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label for="model-select">Model</label>
+                <select id="model-select">
+                    <option value="gemini-2.5-flash" selected>Gemini 2.5 Flash</option>
+                    <option value="gemini-3-pro-preview">Gemini 3 Pro Preview</option>
+                </select>
+            </div>
+
+            <div class="upload-section">
+                <h3>Data Source</h3>
+                <div id="drop-zone" class="drop-zone">
+                    <p>Drag & Drop XLSX files here</p>
+                    <input type="file" id="file-input" accept=".xlsx" multiple hidden>
+                    <button id="browse-btn" class="secondary-btn">Browse Files</button>
+                </div>
+                <div id="file-catalog" class="file-catalog">
+                    <!-- File items will be injected here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <div id="chat-history" class="chat-history">
+                <div class="message system">
+                    <div class="content">
+                        <p>Welcome! Upload your XLSX files and ask me anything about your data.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <textarea id="chat-input" placeholder="Ask a question about your data..." rows="1"></textarea>
+                <button id="send-btn" class="primary-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </main>
+
+        <!-- Log Panel -->
+        <aside class="log-panel">
+            <div class="log-header">
+                <h3>System Log</h3>
+                <button id="clear-log" class="icon-btn" title="Clear Log">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="log-content" class="log-content">
+                <!-- Logs will appear here -->
+            </div>
+        </aside>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
