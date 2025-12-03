@@ -65,7 +65,8 @@ body {
     letter-spacing: 0.5px;
 }
 
-input[type="password"], select {
+input[type="password"],
+select {
     background-color: var(--bg-color);
     border: 1px solid var(--border-color);
     color: var(--text-primary);
@@ -77,7 +78,8 @@ input[type="password"], select {
     transition: border-color 0.2s;
 }
 
-input[type="password"]:focus, select:focus {
+input[type="password"]:focus,
+select:focus {
     border-color: var(--primary-color);
 }
 
@@ -104,7 +106,8 @@ input[type="password"]:focus, select:focus {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
-.drop-zone:hover, .drop-zone.dragover {
+.drop-zone:hover,
+.drop-zone.dragover {
     border-color: var(--primary-color);
     background-color: rgba(88, 166, 255, 0.05);
 }
@@ -163,11 +166,16 @@ input[type="password"]:focus, select:focus {
     flex-direction: column;
     background-color: var(--chat-bg);
     position: relative;
+    /* Ensure bounded area */
+    height: 100vh;
+    overflow: hidden;
 }
 
 .chat-history {
     flex: 1;
     overflow-y: auto;
+    overflow-x: auto;
+    /* Allow horizontal scroll */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -179,6 +187,8 @@ input[type="password"]:focus, select:focus {
     flex-direction: column;
     max-width: 80%;
     animation: fadeIn 0.3s ease;
+    position: relative;
+    /* For positioning action bar if needed, though we use flex */
 }
 
 .message.user {
@@ -196,6 +206,8 @@ input[type="password"]:focus, select:focus {
     border-radius: 12px;
     font-size: 15px;
     line-height: 1.5;
+    word-wrap: break-word;
+    /* Ensure text wraps */
 }
 
 .message.user .content {
@@ -226,6 +238,45 @@ input[type="password"]:focus, select:focus {
     border: 1px solid var(--border-color);
     width: 100%;
     max-width: 600px;
+}
+
+/* Action Bar */
+.action-bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    justify-content: flex-end;
+    /* Right justified */
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.message.model:hover .action-bar {
+    opacity: 1;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.action-btn svg {
+    width: 16px;
+    height: 16px;
 }
 
 /* Chat Input */
@@ -336,6 +387,8 @@ input[type="password"]:focus, select:focus {
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
+    /* For horizontal scroll */
 }
 
 ::-webkit-scrollbar-track {
@@ -352,6 +405,13 @@ input[type="password"]:focus, select:focus {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

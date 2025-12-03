@@ -62,15 +62,20 @@ def process_xlsx(file_path, output_dir):
                     df.to_csv(csv_path, index=False)
                     
                     generated_files.append(csv_path)
-                    summary.append(f"Sheet: {sheet_name}, Table {i+1}: {len(df)} rows, Columns: {', '.join(map(str, df.columns.tolist()))}")
+                    # summary.append(...)
                 except Exception as e:
                     logging.error(f"Error processing block {i} in sheet {sheet_name}: {e}")
+            
+        summary.append(f"{len(wb.sheetnames)} sheets")
 
+            
     except Exception as e:
         logging.error(f"Failed to process XLSX: {e}")
         raise e
 
-    return generated_files, summary
+    # Return just the file summary
+    final_summary = [f"{len(wb.sheetnames)} Sheets"]
+    return generated_files, final_summary
 
 def upload_to_gemini(client, file_path, mime_type="text/csv"):
     """
